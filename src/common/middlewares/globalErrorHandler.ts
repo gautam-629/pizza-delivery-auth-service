@@ -17,7 +17,6 @@ export const globalErrorHandler = (
     const message = isProduction
         ? `An unexpected error occurred.`
         : err.message;
-
     logger.error(err.message, {
         id: errorId,
         error: err.stack,
