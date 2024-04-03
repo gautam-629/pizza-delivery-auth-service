@@ -6,10 +6,10 @@ import { Roles } from "../constants";
 export class AuthController {
     constructor(private userService: UserService) { }
     async register(req: RegisterUserRequest, res: Response, next: NextFunction) {
-
-        const { firstName, lastName, email, password } = req.body;
-        
         try {
+            // Extract user data from request body
+            const { firstName, lastName, email, password } = req.body;
+            // Create a new user
             const user = await this.userService.create({
                 firstName,
                 lastName,
@@ -17,15 +17,12 @@ export class AuthController {
                 password,
                 role: Roles.CUSTOMER
             }
+
             );
-
-            res.status(201).json({ id: user.id })
-
+            // Return success response
+            return res.status(201).json({ id: user.id })
         } catch (error) {
             next(error)
         }
-
-
-
     }
 }
